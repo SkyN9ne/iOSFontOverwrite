@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 rm -rf PreviewFonts XmlFonts XmlFontsRenamed RecompiledFonts RepackedFonts || true
 mkdir -p PreviewFonts XmlFonts XmlFontsRenamed RecompiledFonts RepackedFonts || true
