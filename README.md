@@ -1,11 +1,13 @@
-Proof-of-concept app to overwrite fonts on iOS using [CVE-2022-46689](https://support.apple.com/en-us/HT213530).
+## PoC app to overwrite fonts on iOS and iPadOS 
 
-Works on iOS 16.1.2 and below (tested on iOS 16.1) on unjailbroken devices.
+using the vulnerability [CVE-2022-46689](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-46689)
 
-IPA available in the [Releases](https://github.com/ginsudev/WDBFontOverwrite/releases) section.
+Works on iOS / iPadOS 16.1.2 and below (tested on *iOS 16.1*) on _non-jailbroken devices_
 
-Fonts included:
+A Pre-compiled ```*.IPA``` file is available under the [Releases](https://github.com/ginsudev/WDBFontOverwrite/releases) section.
 
+## Fonts included:
+-------
 - DejaVu Sans Condensed
 - DejaVu Serif
 - DejaVu Sans Mono
@@ -32,24 +34,24 @@ Hanna Soft + JoyPixels | Bronkoh | Noto Serif SC | Fira Sans
 
 ![Another screenshot](https://user-images.githubusercontent.com/704768/209753262-b8204c92-b873-41a7-8127-38bf86096470.png)
 
-Screenshot credit: [@ev_ynw](https://twitter.com/ev_ynw) for the ported [Hanna Soft](https://app.box.com/s/g4uk1yyqxm36sl9ovbwkpbbpn9isol8h/file/997004671334) and [Bronkoh](https://app.box.com/s/g4uk1yyqxm36sl9ovbwkpbbpn9isol8h/file/915757902297) fonts, [JoyPixels](https://joypixels.com/download) for the emoji font
+Screenshot credit: [@ev_ynw](https://twitter.com/ev_ynw) for the ported [Hanna Soft](https://app.box.com/s/g4uk1yyqxm36sl9ovbwkpbbpn9isol8h/file/997004671334) and [Bronkoh](https://app.box.com/s/g4uk1yyqxm36sl9ovbwkpbbpn9isol8h/file/915757902297) fonts.
+[JoyPixels](https://joypixels.com/download) for the emoji font
 
-## Where to find ported fonts
+## Ported fonts
 
-- [@ev_ynw](https://twitter.com/ev_ynw)
-- [@PoomSmart](https://github.com/PoomSmart/EmojiFonts/releases)
+https://github.com/PoomSmart/EmojiFonts
 
 ## Known issues
 
- - The built-in fonts are not properly ported (I don't know how to port fonts). For best results, use a custom font.
+ * The built-in fonts are not properly ported (I don't know how to port fonts). For best results, use a custom font.
    - with the built-in fonts:
    - Only regular text uses the changed font: thin/medium/bold text falls back to Helvetica instead.
-   - If the font doesn't show up at all, [disable "Bold Text"](https://twitter.com/m7mdabu7assan/status/1607609484901289985) in accessibility settings.
- - File pickers in apps will fail to open with the error "Something went wrong while displaying documents." 
-   - This happens if you replace the emoji font, or install fonts with [multiple weights](https://twitter.com/Gu3hi/status/1607986473198026752)
-   - Try the experimental .ttc fix by using "Import custom <font> with fix for .ttc"
- - iOS 14.x devices which are jailbroken / were jailbroken before will not be able to revert to the original font.
-   - Workaround: do not use this app if you're on iOS 14.x and have previously jailbroken. Instead, just jailbreak and replace fonts normally.
+   * If the font doesn't show up at all, [disable "Bold Text"](https://twitter.com/m7mdabu7assan/status/1607609484901289985) in accessibility settings.
+ * File pickers in apps will fail to open with the error "Something went wrong while displaying documents." 
+   * This happens if you replace the emoji font, or install fonts with [multiple weights](https://twitter.com/Gu3hi/status/1607986473198026752)
+   * Try the experimental ```.ttc``` fix by using "Import custom *<FONT>* with fix for ```.ttc```"
+ * iOS 14.x devices which are jailbroken / were jailbroken before will not be able to revert to the original font.
+   * Workaround: do not use this if you're on iOS 14.x and have previously jailbroken. Instead, just jailbreak and replace fonts normally.
 
 ## Font conversion
 
@@ -59,11 +61,11 @@ The CVE-2022-46689 issue - as far as I know - only lets you overwrite 16383 byte
 
 To work around this, I package the font using the [WOFF2](https://www.w3.org/TR/WOFF2/) webfont format, which is [supported on iOS](https://twitter.com/myunderpants/status/1503745380365877252). WOFF2 uses [Brotli](https://datatracker.ietf.org/doc/html/rfc7932) for compression, which lets me insert padding to skip over the last byte.
 
-See `repackfonts/make_woff2src.sh` for details: this script:
+See `repackfonts/make_woff2src.sh` for details. this script:
 
-- renames the font to .SFUI-Regular with [TTX](https://github.com/fonttools/fonttools) following [this answer](https://superuser.com/a/694452)
-- rebuilds the font to .woff2
-- runs `repackfonts/BrotliPadding.swift` to decompress the WOFF2 file and insert padding to skip past the 16384th byte
+* renames the font to ```.SFUI-Regular``` with [TTX](https://github.com/fonttools/fonttools) following [this answer](https://superuser.com/a/694452)
+* rebuilds the font to ```.woff2```
+* runs `repackfonts/BrotliPadding.swift` to decompress the WOFF2 file and insert padding to skip past the 16384th byte
 
 
 ## Credits
