@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # this repo contains a prebuilt version of woff2.
 # this rebuilds the version.
 # woff2 revision 4721483ad780ee2b63cb787bfee4aa64b61a0446.
